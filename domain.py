@@ -1,8 +1,8 @@
-class IntRangeDomain:
-    _values = set()
+class Domain:
+    _values = []
 
-    def __init__(self, lower_bound, upper_bound):
-        self._values = set([i for i in range(lower_bound, upper_bound + 1)])
+    def __init__(self, values):
+        self._values = values
     
     @property
     def values(self):
