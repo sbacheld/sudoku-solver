@@ -1,4 +1,9 @@
-class AllDiffConstraint:
+class Constraint:
+    def is_violated(self):
+        raise NotImplementedError
+
+
+class AllDiffConstraint(Constraint):
     _variables = []
 
     def __init__(self, variables):
@@ -14,3 +19,18 @@ class AllDiffConstraint:
             values.add(variable.value)
 
         return False
+
+
+class EqualConstraint(Constraint):
+    _variable = None
+    _value = None
+
+    def __init__(self, variable, value):
+        self._variable = variable
+        self._value = value
+
+    def is_violated(self):
+        if self._variable.value is None:
+            return False
+
+        return self._variable.value != self._value
