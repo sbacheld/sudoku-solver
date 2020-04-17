@@ -17,3 +17,10 @@ Deactivate the environment:
 ```bash
 conda deactivate
 ```
+
+## Tests
+
+Running all tests:
+```bash
+python -m unittest
+```
