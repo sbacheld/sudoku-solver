@@ -50,7 +50,7 @@ class Board:
     def is_filled_out(self):
         return all([self._board[i][j].filled() for i in range(self.SIZE) for j in range(self.SIZE)])
 
-    def boxes_units(self, rows, cols):
+    def boxes_units(self):
         for rows in [[0, 1, 2], [3, 4, 5], [6, 7, 8]]:
             for cols in [[0, 1, 2], [3, 4, 5], [6, 7, 8]]:
                 yield [self._board[i][j] for i in rows for j in cols]
