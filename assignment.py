@@ -12,3 +12,9 @@ class Assignment:
 
     def is_set(self, name):
         return self.get(name) != None
+
+    def unset(self, name):
+        del self._state[name]
+
+    def count(self):
+        return len(self._state)
