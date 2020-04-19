@@ -1,5 +1,5 @@
 class Constraint:
-    def is_violated(self):
+    def is_violated(self, assignment):
         raise NotImplementedError
 
 
@@ -9,14 +9,17 @@ class AllDiffConstraint(Constraint):
     def __init__(self, variables):
         self._variables = variables
 
-    def is_violated(self):
+    def is_violated(self, assignment):
         values = set()
         for variable in self._variables:
-            if not variable.is_set:
+            if not assignment.is_set(variable.name):
                 continue
-            if variable.value in values:
+
+            assigned_value = assignment.get(variable.name)
+            if assigned_value in values:
                 return True
-            values.add(variable.value)
+
+            values.add(assigned_value)
 
         return False
 
@@ -29,8 +32,10 @@ class EqualConstraint(Constraint):
         self._variable = variable
         self._value = value
 
-    def is_violated(self):
-        if self._variable.value is None:
+    def is_violated(self, assignment):
+        if not assignment.is_set(self._variable.name):
             return False
 
-        return self._variable.value != self._value
+        assigned_value = assignment.get(self._variable.name)
+
+        return assigned_value != self._value
