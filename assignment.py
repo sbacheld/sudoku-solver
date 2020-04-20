@@ -18,3 +18,7 @@ class Assignment:
 
     def count(self):
         return len(self._state)
+
+    @property
+    def state(self):
+        return self._state

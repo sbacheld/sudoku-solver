@@ -35,7 +35,7 @@ class Board:
         for i in range(self.SIZE):
             self._board[i] = [None] * self.SIZE
             for j in range(self.SIZE):
-                name = '{}{}'.format(string.ascii_uppercase[i], j)
+                name = self._grid_to_unit_name(i, j)
                 initial_value = Unit.EMPTY_SPACE
                 if initial_values:
                     initial_value = initial_values[i][j]
@@ -67,3 +67,23 @@ class Board:
         for i in range(self.SIZE):
             for j in range(self.SIZE):
                 yield self._board[i][j]
+
+    def _grid_to_unit_name(self, i, j):
+        return '{}{}'.format(string.ascii_uppercase[i], j)
+
+    def _unit_name_to_grid(self, unit_name):
+        return string.ascii_uppercase.find(unit_name[0]), int(unit_name[1])
+
+    def update_units_by_name(self, units):
+        for name, value in units.items():
+            i, j = self._unit_name_to_grid(name)
+            self._board[i][j] = Unit(name, value)
+
+    def __str__(self):
+        rows = []
+        for i, row in enumerate(self.rows()):
+            if i > 0 and i % 3 == 0:
+                rows.append('-------+-------+-------')
+            row_values = [unit.value for unit in row]
+            rows.append(' {} {} {} | {} {} {} | {} {} {}'.format(*row_values))
+        return '\n'.join(rows)
