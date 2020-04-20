@@ -24,3 +24,9 @@ Running all tests:
 ```bash
 python -m unittest
 ```
+
+## Running
+
+```bash
+python runner.py
+```
