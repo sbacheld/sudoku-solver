@@ -6,7 +6,15 @@ SolverResult = namedtuple('SolverResult', ['success', 'assignment'])
 
 
 class Solver:
+    _inferencers = []
+
+    def __init__(self, inferencers = []):
+        self._inferencers = inferencers
+
     def solve(self, csp):
+        for inferencer in self._inferencers:
+            inferencer.apply(csp)
+
         return self._backtracking_search(csp)
 
     def _backtracking_search(self, csp):

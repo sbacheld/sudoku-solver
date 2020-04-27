@@ -2,6 +2,15 @@ class Constraint:
     def is_violated(self, assignment):
         raise NotImplementedError
 
+    def is_unary(self):
+        raise NotImplementedError
+
+    def is_binary(self):
+        raise NotImplementedError
+
+    def get_arcs(self):
+        raise NotImplementedError
+
 
 class AllDiffConstraint(Constraint):
     _variables = []
@@ -23,6 +32,15 @@ class AllDiffConstraint(Constraint):
 
         return False
 
+    def is_unary(self):
+        return False
+
+    def is_binary(self):
+        return True
+
+    def get_arcs(self):
+        return []  # TODO
+
 
 class EqualConstraint(Constraint):
     _variable = None
@@ -39,3 +57,19 @@ class EqualConstraint(Constraint):
         assigned_value = assignment.get(self._variable.name)
 
         return assigned_value != self._value
+
+    def is_unary(self):
+        return True
+
+    def is_binary(self):
+        return False
+
+    def get_arcs(self):
+        return []
+
+    @property
+    def variable(self):
+        return self._variable
+
+    def allowed_values(self):
+        return [self._value]

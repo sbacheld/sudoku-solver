@@ -2,6 +2,7 @@ from board import Board
 from constraint import EqualConstraint, AllDiffConstraint
 from constraint_satisfaction_problem import ConstraintSatisfactionProblem
 from domain import Domain
+from inference import NodeConsistency
 from solver import Solver
 from variable import Variable
 
@@ -14,7 +15,9 @@ class SudokuSolver:
     def __init__(self):
         self._result = None
         self._csp = None
-        self._csp_solver = Solver()
+
+        preprocessors = [NodeConsistency()]
+        self._csp_solver = Solver(preprocessors)
 
     def prepare(self, board):
         variables = self._build_variables(board)

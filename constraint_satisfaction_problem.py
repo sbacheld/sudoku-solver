@@ -6,6 +6,14 @@ class ConstraintSatisfactionProblem:
         self._variables = variables
         self._constraints = constraints
 
+    @property
+    def variables(self):
+        return self._variables
+    
+    @property
+    def constraints(self):
+        return self._constraints
+
     def complete(self, assignment):
         if assignment.count() != len(self._variables):
             return False
